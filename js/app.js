@@ -4,31 +4,7 @@ const descInput = document.getElementById("description");
 
 let todos = getTodos();
 
-function renderTodos() {
-    const table = document.querySelector("#table tbody");
-    table.innerHTML = "";
-
-    todos.forEach((todo, index) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${todo.title}</td>
-            <td>${todo.description}</td>
-            <td class="text-center">
-                <input type="checkbox" class="check" data-index="${index}" ${todo.completed ? "checked" : ""}>
-            </td>
-            <td class="text-right">
-                <button class="btn btn-danger delete" data-index="${index}">
-                    X
-                </button>
-            </td>
-        `;
-
-        table.appendChild(row);
-    });
-}
-
-renderTodos();
+renderTodos(todos);
 
 btnAdd.addEventListener("click", () => {
     const title = titleInput.value.trim();
@@ -47,8 +23,8 @@ btnAdd.addEventListener("click", () => {
 
     todos.push(newTodo);
     saveTodos(todos);
-    renderTodos();
-
+    renderTodos(todos);
+    
     titleInput.value = "";
     descInput.value = "";
 });
@@ -60,7 +36,7 @@ document.querySelector("#table").addEventListener("click", (e) => {
 
         todos.splice(index, 1);
         saveTodos(todos);
-        renderTodos();
+        renderTodos(todos);
     }
 
     if (e.target.classList.contains("check")) {
@@ -69,4 +45,19 @@ document.querySelector("#table").addEventListener("click", (e) => {
         todos[index].completed = e.target.checked;
         saveTodos(todos);
     }
+
+    if (e.target.closest(".edit")) {
+    const index = e.target.closest(".edit").dataset.index;
+
+    const nuevoTitulo = prompt("Nuevo título:", todos[index].title);
+    const nuevaDesc = prompt("Nueva descripción:", todos[index].description);
+
+    if (nuevoTitulo && nuevaDesc) {
+        todos[index].title = nuevoTitulo;
+        todos[index].description = nuevaDesc;
+
+        saveTodos(todos);
+        renderTodos(todos);
+    }
+}
 });
