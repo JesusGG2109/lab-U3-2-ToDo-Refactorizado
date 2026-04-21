@@ -3,6 +3,9 @@
 
 [![Development Stack](https://img.shields.io/badge/Stack-Vanilla_JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://github.com/JesusGG2109/lab-U3-2-ToDo-Refactorizado)
 [![Architecture](https://img.shields.io/badge/Pattern-Modular_Architecture-blue?style=for-the-badge)](https://github.com/JesusGG2109)
+[![Live Demo](https://img.shields.io/badge/Demo-Live_Project-success?style=for-the-badge&logo=githubpages&logoColor=white)](https://jesusgg2109.github.io/lab-U3-2-ToDo-Refactorizado/)
+
+> **Link del Proyecto:** [https://jesusgg2109.github.io/lab-U3-2-ToDo-Refactorizado/](https://jesusgg2109.github.io/lab-U3-2-ToDo-Refactorizado/)
 
 Aplicación de gestión de tareas desarrollada en JavaScript puro, enfocada en la separación de responsabilidades, manipulación eficiente del DOM y persistencia de estado en el cliente.
 
