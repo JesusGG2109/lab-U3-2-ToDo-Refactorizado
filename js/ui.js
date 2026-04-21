@@ -17,6 +17,8 @@ function renderTodos(todos, filter = "all") {
     filtered.forEach((todo, index) => {
         const col = document.createElement("div");
         col.className = "col-md-4";
+        col.setAttribute("draggable", true);
+        col.dataset.index = index;
 
         col.innerHTML = `
             <div class="card-todo ${todo.completed ? "completed" : ""}">
@@ -37,6 +39,8 @@ function renderTodos(todos, filter = "all") {
                 </div>
             </div>
         `;
+
+        col.style.animation = "fadeIn 0.3s ease";
 
         list.appendChild(col);
     });

@@ -11,7 +11,7 @@ btnAdd.addEventListener("click", () => {
     const title = titleInput.value.trim();
     const desc = descInput.value.trim();
 
-    if (title === "" || desc === "") return;
+    if (!title || !desc) return;
 
     todos.push({
         title,
@@ -66,4 +66,27 @@ document.querySelectorAll(".filter").forEach(btn => {
         currentFilter = btn.dataset.filter;
         renderTodos(todos, currentFilter);
     });
+});
+
+let dragIndex = null;
+
+document.getElementById("list").addEventListener("dragstart", (e) => {
+    dragIndex = e.target.dataset.index;
+});
+
+document.getElementById("list").addEventListener("dragover", (e) => {
+    e.preventDefault();
+});
+
+document.getElementById("list").addEventListener("drop", (e) => {
+    const dropIndex = e.target.closest("[draggable]")?.dataset.index;
+
+    if (dropIndex !== undefined && dragIndex !== null) {
+        const temp = todos[dragIndex];
+        todos[dragIndex] = todos[dropIndex];
+        todos[dropIndex] = temp;
+
+        saveTodos(todos);
+        renderTodos(todos, currentFilter);
+    }
 });
