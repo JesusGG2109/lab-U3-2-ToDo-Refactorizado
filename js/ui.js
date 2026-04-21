@@ -1,26 +1,43 @@
-function renderTodos(todos) {
-    const table = document.querySelector("#table tbody");
-    table.innerHTML = "";
+function renderTodos(todos, filter = "all") {
+    const list = document.getElementById("list");
+    const counter = document.getElementById("counter");
 
-    todos.forEach((todo, index) => {
-        const row = document.createElement("tr");
+    list.innerHTML = "";
 
-        row.innerHTML = `
-            <td>${todo.title}</td>
-            <td>${todo.description}</td>
-            <td class="text-center">
-                <input type="checkbox" class="check" data-index="${index}" ${todo.completed ? "checked" : ""}>
-            </td>
-            <td class="text-right">
-                <button class="btn btn-primary edit" data-index="${index}">
-                    <i class="fa fa-pencil"></i>
-                </button>
+    let filtered = todos;
 
-                <button class="btn btn-danger delete" data-index="${index}">
-                 X
-                </button>
-            </td>`;
+    if (filter === "completed") {
+        filtered = todos.filter(t => t.completed);
+    } else if (filter === "pending") {
+        filtered = todos.filter(t => !t.completed);
+    }
 
-        table.appendChild(row);
+    counter.textContent = `${filtered.length} tareas`;
+
+    filtered.forEach((todo, index) => {
+        const col = document.createElement("div");
+        col.className = "col-md-4";
+
+        col.innerHTML = `
+            <div class="card-todo ${todo.completed ? "completed" : ""}">
+                <h5>${todo.title}</h5>
+                <p>${todo.description}</p>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <input type="checkbox" class="check" data-index="${index}" ${todo.completed ? "checked" : ""}>
+
+                    <div>
+                        <button class="btn btn-primary btn-sm edit" data-index="${index}">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm delete" data-index="${index}">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        list.appendChild(col);
     });
 }
